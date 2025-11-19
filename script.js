@@ -559,8 +559,32 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Check if the email is not the contact email
+            if (email.toLowerCase() === 'craftlab.feedback@gmail.com') {
+                alert('Please use a different email address for sending the message.');
+                return;
+            }
+
+            // Send email using EmailJS
+            emailjs.send("service_f8igwie","template_vcoxspa",{
+                name: name,
+                title: subject,
+                email: email,
+                message: message
+            })
+            .then(function(response) {
+                alert('Message sent successfully!');
+                contactForm.reset();
+            }, function(error) {
+                alert('Failed to send message. Please try again.');
+                console.error('EmailJS error:', error);
+            });
         });
     }
 
@@ -723,7 +747,7 @@ function updateProductPrices() {
         const priceUSD = parseFloat(element.getAttribute('data-price-usd'));
         const convertedPrice = convertPrice(priceUSD, userCurrency);
         const formattedPrice = formatPrice(convertedPrice, userCurrency);
-        element.textContent = formattedPrice;
+        element.innerHTML = formattedPrice;
     });
 }
 
