@@ -569,23 +569,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (email.toLowerCase() === 'craftlab.feedback@gmail.com') {
                 alert('Please use a different email address for sending the message.');
                 return;
-            }
-
-            // Send email using EmailJS
-            emailjs.send("service_f8igwie","template_vcoxspa",{
-                name: name,
-                title: subject,
-                email: email,
-                message: message
-            })
-            .then(function(response) {
-                alert('Message sent successfully!');
-                contactForm.reset();
-            }, function(error) {
-                alert('Failed to send message. Please try again.');
-                console.error('EmailJS error:', error);
-            });
-        });
+            };
+        }
+    );
     }
 
     // Parallax effect for hero section
@@ -825,4 +811,19 @@ function loadFeaturedProducts() {
 
         featuredContainer.appendChild(productCard);
     });
+}
+
+function sendMail() {
+    let parms = {
+        name : document.getElementById("name").value,
+        email : document.getElementById("email").value,
+        subject : document.getElementById("subject").value,
+        message : document.getElementById("message").value
+    };
+
+    // 1. Mail do Ciebie
+    emailjs.send("service_f8igwie", "template_vcoxspa", parms);
+
+    // 2. Autoreply do użytkownika
+    emailjs.send("service_f8igwie", "template_wevr398", parms) .then(alert("Email sent successfully!"));
 }

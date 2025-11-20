@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -68,7 +69,7 @@
                         <div>
                             <h3>Email</h3>
                             <p>craftlab.feedback@gmail.com</p>
-                            <p>Reply within 24 hours</p>
+                            <p>Reply within 7 days</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -104,9 +105,9 @@
                             <textarea id="message" placeholder="Your message" rows="6" required></textarea>
                         </div>
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="your-site-key-here"></div>
+                        
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary" onclick="sendMail()">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -159,7 +160,16 @@
             </div>
         </div>
     </footer>
-
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+        </script>
+        <script type="text/javascript">
+         (function(){
+         emailjs.init({
+        publicKey: "H4ggrNJdmC2nA67ap",
+      });
+   })();
+</script>
     <script src="script.js"></script>
 </body>
 </html>
