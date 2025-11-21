@@ -148,7 +148,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>support@craftlab.com</p>
+                            <p>craftlab.feedback@gmail.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -163,9 +163,9 @@
                         <div>
                             <h3>Social Media</h3>
                             <div class="social-links">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-youtube"></i></a>
-                                <a href="#"><i class="fab fa-reddit"></i></a>
+                                <a href="#" onclick="alert(`Soon`)" title="Soon"><i class="fa-brands fa-discord"></i></i></a>
+                                <a href="https://www.youtube.com/@CraftLab_Media" title="Youtube"><i class="fab fa-youtube"></i></a>
+                                <a href="https://github.com/CraftLabShop" title="GitHub"><i class="fa-brands fa-github"></i></i></a>
                             </div>
                         </div>
                     </div>
@@ -173,15 +173,21 @@
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" placeholder="Your Name" required>
+                            <input type="text" id="name" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" placeholder="Your Email" required>
+                            <input type="email" id="email" placeholder="Your email" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                            <input type="text" id="subject" placeholder="Subject" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your message" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                        
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="sendMail()">Send Message</button>
                     </form>
                 </div>
             </div>

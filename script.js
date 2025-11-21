@@ -491,6 +491,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         hamburger.addEventListener('click', function() {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
     }
 
@@ -500,11 +502,42 @@ document.addEventListener('DOMContentLoaded', async function() {
         navMenu.classList.remove('active');
     }));
 
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        // Don't close if clicking on hamburger, nav menu, dropdown toggles, dropdown menus, or currency menu
+        const isHamburger = hamburger.contains(e.target);
+        const isNavMenu = navMenu.contains(e.target);
+        const isDropdownToggle = e.target.closest('.dropdown-toggle');
+        const isDropdownMenu = e.target.closest('.dropdown-menu') || e.target.closest('.currency-menu');
+
+        if (!isHamburger && !isNavMenu && !isDropdownToggle && !isDropdownMenu) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            // Reset dropdown menus when closing mobile menu
+            document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+            document.querySelectorAll('.currency-menu').forEach(menu => menu.classList.remove('show'));
+        }
+    });
+
+    // Remove scroll close functionality to allow scrolling within menu
+    // window.addEventListener('scroll', () => {
+    //     if (navMenu.classList.contains('active')) {
+    //         hamburger.classList.remove('active');
+    //         navMenu.classList.remove('active');
+    //     }
+    // });
+
     // Handle dropdown menu for desktop
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(dropdown => {
         const toggle = dropdown.querySelector('.dropdown-toggle');
         const menu = dropdown.querySelector('.dropdown-menu');
+
+        // Hide arrow for "Other" on mobile
+        if (window.innerWidth <= 768 && toggle.textContent.includes('Other')) {
+            const arrow = toggle.querySelector('i');
+            if (arrow) arrow.style.display = 'none';
+        }
 
         if (window.innerWidth > 768) {
             // Desktop: hover to show/hide
@@ -515,8 +548,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                 menu.classList.remove('show');
             });
         } else {
-            // Mobile: click to toggle
+            // Mobile: click to toggle, but allow navigation for "Other" link
             toggle.addEventListener('click', (e) => {
+                if (toggle.textContent.includes('Other')) {
+                    // Allow navigation to other.html without showing submenu
+                    return;
+                }
                 e.preventDefault();
                 menu.classList.toggle('show');
             });
